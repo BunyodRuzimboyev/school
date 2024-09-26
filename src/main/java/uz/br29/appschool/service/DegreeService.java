@@ -36,7 +36,7 @@ public class DegreeService {
             return ResponseEntity.status(201).body(
                     ApiResponse.builder()
                             .success(true)
-                            .message("Degree is saved")
+                            .message("Degree has been saved")
                             .object(savedDegree)
                             .build()
             );
@@ -55,7 +55,7 @@ public class DegreeService {
             if (optional.isEmpty()) {
                 return ResponseEntity.status(404).body(
                         ApiResponse.builder()
-                                .message("Degree hasn't found")
+                                .message("Degree hasn't been found")
                                 .success(false)
                                 .build()
                 );
@@ -74,7 +74,7 @@ public class DegreeService {
             return ResponseEntity.status(202).body(
                     ApiResponse.builder()
                             .success(true)
-                            .message("Degree has updated")
+                            .message("Degree has been updated")
                             .object(editedDegree)
                             .build()
             );
@@ -112,7 +112,7 @@ public class DegreeService {
                 return ResponseEntity.status(404).body(
                         ApiResponse.builder()
                                 .success(false)
-                                .message("Degree hasn't found !")
+                                .message("Degree hasn't been found !")
                                 .build()
                 );
             }
@@ -129,4 +129,6 @@ public class DegreeService {
             throw new RuntimeException("Error within getting degree by id !");
         }
     }
+
+
 }

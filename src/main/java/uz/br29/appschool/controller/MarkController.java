@@ -7,30 +7,30 @@ import org.springframework.http.HttpEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import uz.br29.appschool.anotations.CurrentUser;
-import uz.br29.appschool.dto.request.DegreeAddRequest;
-import uz.br29.appschool.dto.request.DegreeEditRequest;
+import uz.br29.appschool.dto.request.MarkAddRequest;
+import uz.br29.appschool.dto.request.MarkEditRequest;
 import uz.br29.appschool.security.User;
-import uz.br29.appschool.service.DegreeService;
+import uz.br29.appschool.service.MarkService;
 
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/school/degree")
+@RequestMapping("api/school/mark")
 @RequiredArgsConstructor
-@Tag(name = "Degree")
-public class DegreeController {
+@Tag(name = "Mark")
+public class MarkController {
 
-    private final DegreeService service;
+    private final MarkService service;
 
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN, ADMIN, DIRECTOR')")
     @PostMapping("/add")
-    public HttpEntity<?> add(@CurrentUser User currentUser, @Valid @RequestBody DegreeAddRequest request){
+    public HttpEntity<?> add(@CurrentUser User currentUser, @Valid @RequestBody MarkAddRequest request){
         return service.add(currentUser, request);
     }
 
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN, ADMIN, DIRECTOR')")
     @PutMapping("/edit")
-    public HttpEntity<?> edit(@CurrentUser User currentUser, @Valid @RequestBody DegreeEditRequest request){
+    public HttpEntity<?> edit(@CurrentUser User currentUser, @Valid @RequestBody MarkEditRequest request){
         return service.edit(currentUser, request);
     }
 

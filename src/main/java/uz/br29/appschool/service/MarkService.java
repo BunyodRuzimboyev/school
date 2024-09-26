@@ -4,11 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import uz.br29.appschool.dto.request.PositionAddRequest;
-import uz.br29.appschool.dto.request.PositionEditRequest;
+import uz.br29.appschool.dto.request.MarkAddRequest;
+import uz.br29.appschool.dto.request.MarkEditRequest;
 import uz.br29.appschool.dto.response.ApiResponse;
-import uz.br29.appschool.entity.Position;
-import uz.br29.appschool.repository.PositionRepository;
+import uz.br29.appschool.entity.Mark;
+import uz.br29.appschool.repository.MarkRepository;
 import uz.br29.appschool.security.User;
 
 import java.util.List;
@@ -17,66 +17,70 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class PositionService {
+public class MarkService {
 
-    private final PositionRepository positionRepository;
+    private final MarkRepository markRepository;
     private final SanitizeInputService sanitizeInputService;
 
 
-    public HttpEntity<?> add(User currentUser, PositionAddRequest request) {
+    public HttpEntity<?> add(User currentUser, MarkAddRequest request) {
 
-        Position position = Position.builder()
+        Mark mark = Mark.builder()
                 .name(sanitizeInputService.sanitizeInput(request.getName()))
+                .quantity(request.getQuantity())
                 .build();
 
         try {
 
-            Position savedPosition = positionRepository.save(position);
+            Mark savedMark = markRepository.save(mark);
             return ResponseEntity.status(201).body(
                     ApiResponse.builder()
                             .success(true)
-                            .message("Position has been saved")
-                            .object(savedPosition)
+                            .message("Mark has been saved")
+                            .object(savedMark)
                             .build()
             );
 
         } catch (Exception exception) {
-            throw new RuntimeException("Error within saving position !");
+            throw new RuntimeException("Error within saving mark !");
         }
 
     }
 
-    public HttpEntity<?> edit(User currentUser, PositionEditRequest request) {
+    public HttpEntity<?> edit(User currentUser, MarkEditRequest request) {
 
         try {
 
-            Optional<Position> optional = positionRepository.findById(request.getId());
+            Optional<Mark> optional = markRepository.findById(request.getId());
             if (optional.isEmpty()) {
                 return ResponseEntity.status(404).body(
                         ApiResponse.builder()
-                                .message("Position hasn't been found")
+                                .message("Mark hasn't been found")
                                 .success(false)
                                 .build()
                 );
             }
 
-            Position position = optional.get();
+            Mark mark = optional.get();
             if (request.getName() != null && request.getName().length() > 2) {
-                position.setName(sanitizeInputService.sanitizeInput(request.getName()));
+                mark.setName(sanitizeInputService.sanitizeInput(request.getName()));
+            }
+            if (request.getQuantity() != null && request.getQuantity() >= 0) {
+                mark.setQuantity(request.getQuantity());
             }
 
-            Position editedPosition = positionRepository.save(position);
+            Mark editedMark = markRepository.save(mark);
 
             return ResponseEntity.status(202).body(
                     ApiResponse.builder()
                             .success(true)
-                            .message("Position has been updated")
-                            .object(editedPosition)
+                            .message("Mark has been updated")
+                            .object(editedMark)
                             .build()
             );
 
         } catch (Exception exception) {
-            throw new RuntimeException("Error within updating position !");
+            throw new RuntimeException("Error within updating mark !");
         }
 
     }
@@ -85,16 +89,16 @@ public class PositionService {
 
         try {
 
-            List<Position> positionList = positionRepository.findAll();
+            List<Mark> markList = markRepository.findAll();
             return ResponseEntity.status(200).body(
                     ApiResponse.builder()
                             .success(true)
-                            .message("Position list")
-                            .object(positionList)
+                            .message("Mark list")
+                            .object(markList)
                             .build()
             );
         } catch (Exception exception) {
-            throw new RuntimeException("Error within getting position list !");
+            throw new RuntimeException("Error within getting mark list !");
         }
 
     }
@@ -103,26 +107,26 @@ public class PositionService {
 
         try {
 
-            Optional<Position> optional = positionRepository.findById(id);
+            Optional<Mark> optional = markRepository.findById(id);
             if (optional.isEmpty()) {
                 return ResponseEntity.status(404).body(
                         ApiResponse.builder()
                                 .success(false)
-                                .message("Position hasn't been found !")
+                                .message("Mark hasn't been found !")
                                 .build()
                 );
             }
-            Position position = optional.get();
+            Mark mark = optional.get();
             return ResponseEntity.ok(
                     ApiResponse.builder()
-                            .message("Position")
+                            .message("Mark")
                             .success(true)
-                            .object(position)
+                            .object(mark)
                             .build()
             );
 
         } catch (Exception exception) {
-            throw new RuntimeException("Error within getting position by id !");
+            throw new RuntimeException("Error within getting mark by id !");
         }
     }
 

@@ -1,6 +1,7 @@
 package uz.br29.appschool.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,13 +24,13 @@ public class PositionController {
 
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN, ADMIN, DIRECTOR')")
     @PostMapping("/add")
-    public HttpEntity<?> add(@CurrentUser User currentUser, @RequestBody PositionAddRequest request){
+    public HttpEntity<?> add(@CurrentUser User currentUser, @Valid @RequestBody PositionAddRequest request){
         return service.add(currentUser, request);
     }
 
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN, ADMIN, DIRECTOR')")
     @PutMapping("/edit")
-    public HttpEntity<?> edit(@CurrentUser User currentUser, @RequestBody PositionEditRequest request){
+    public HttpEntity<?> edit(@CurrentUser User currentUser, @Valid @RequestBody PositionEditRequest request){
         return service.edit(currentUser, request);
     }
 
