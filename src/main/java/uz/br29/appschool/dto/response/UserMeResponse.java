@@ -6,6 +6,7 @@ import uz.br29.appschool.enums.Role;
 import uz.br29.appschool.enums.UserType;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Builder
 @Getter
@@ -14,7 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class UserMeResponse {
 
-    private Long id;
+    private UUID id;
 
     private String username;
 

@@ -5,12 +5,14 @@ import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 @EnableJpaAuditing
 public class AuditConfiguration {
 
     @Bean
-    AuditorAware<Long> auditorAware() {
+    AuditorAware<UUID> auditorAware() {
         return new Audit();
     }
 

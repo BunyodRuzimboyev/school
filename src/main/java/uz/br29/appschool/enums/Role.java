@@ -6,6 +6,7 @@ public enum Role {
     ADMIN,
     USER,
     MODERATOR,
-    VIEWER
+    VIEWER,
+    DIRECTOR
 
 }

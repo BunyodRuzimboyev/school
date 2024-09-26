@@ -5,5 +5,6 @@ public enum UserType {
     TEACHER,
     DIRECTOR,
     MANAGER,
-    LIBRARIAN
+    LIBRARIAN,
+    NOBODY
 }

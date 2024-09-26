@@ -31,7 +31,7 @@ public class SecurityConfiguration {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    private final UserService userService;
+    private final UserSecurityService userService;
 
 
     @Bean

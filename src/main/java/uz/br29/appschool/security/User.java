@@ -8,9 +8,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import uz.br29.appschool.enums.Role;
 import uz.br29.appschool.enums.UserType;
 
+import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @EqualsAndHashCode(callSuper = true)
@@ -22,9 +23,6 @@ import java.util.List;
 @Builder
 public class User extends BaseEntity implements UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(unique = true)
     private String username;
@@ -37,29 +35,29 @@ public class User extends BaseEntity implements UserDetails {
 
 //-------------- OTHER FIELDS ------------------------------------
     @Column(nullable = false)
-    private String firstName;
+    private String firstName = "";
 
     @Column(nullable = false)
-    private String lastName;
+    private String lastName = "";
 
-    private String middleName;
-
-    @Column(nullable = false)
-    private Long identificationId;
+    private String middleName = "";
 
     @Column(nullable = false)
-    private Long imageId;
+    private UUID identificationId;
+
+    @Column(nullable = false)
+    private UUID imageId;
 
     @Column(nullable = false)
     private String phone;
 
     @Column(nullable = false)
-    private Date birthDate;
+    private LocalDate birthDate;
 
     private Integer age;
 
     @Column(nullable = false)
-    private Long addressId;
+    private UUID addressId;
 
     @Enumerated(EnumType.STRING)
     private UserType userType;
