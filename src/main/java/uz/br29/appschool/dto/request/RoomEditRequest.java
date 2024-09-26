@@ -5,17 +5,24 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 
+import java.util.UUID;
+
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @Setter
+@Getter
 @Builder
-public class MarkAddRequest {
+public class RoomEditRequest {
 
-    @NotBlank(message = "Mark name mustn't be empty")
+    @NotBlank(message = "Id mustn't be null")
+    private UUID id;
+
     private String name;
 
-    @Positive(message = "Quantity must be bigger than 0")
-    private Short quantity;
+    private Double square;
+
+    private Integer stratum;
+
+    private Integer countChairs;
 
 }
