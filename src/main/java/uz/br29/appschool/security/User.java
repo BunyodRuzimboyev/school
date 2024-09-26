@@ -6,8 +6,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import uz.br29.appschool.enums.Role;
+import uz.br29.appschool.enums.UserType;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -24,9 +26,6 @@ public class User extends BaseEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
-
     @Column(unique = true)
     private String username;
 
@@ -35,6 +34,35 @@ public class User extends BaseEntity implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+//-------------- OTHER FIELDS ------------------------------------
+    @Column(nullable = false)
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
+
+    private String middleName;
+
+    @Column(nullable = false)
+    private Long identificationId;
+
+    @Column(nullable = false)
+    private Long imageId;
+
+    @Column(nullable = false)
+    private String phone;
+
+    @Column(nullable = false)
+    private Date birthDate;
+
+    private Integer age;
+
+    @Column(nullable = false)
+    private Long addressId;
+
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
 
 
     @Override

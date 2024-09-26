@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: SCHOOL-MANAGEMENT
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db_school_management
+    password: siroj1294
+    username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  sql:
+    init:
+      mode: never
+  flyway:
+    enabled: true
+    repair: true
+server:
+  port: 8686
